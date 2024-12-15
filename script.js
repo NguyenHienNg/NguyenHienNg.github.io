@@ -1,69 +1,65 @@
-// Lấy đối tượng canvas và context
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
+const cells = document.querySelectorAll('.cell');
+const statusText = document.getElementById('turn');
+const resetButton = document.getElementById('reset');
 
-// Cấu hình trò chơi
-const tankSpeed = 5;
-const bulletSpeed = 8;
-const tankWidth = 50;
-const tankHeight = 50;
-const bulletRadius = 5;
+let currentPlayer = 'X';
+let board = ['', '', '', '', '', '', '', '', '']; // Dữ liệu bảng trò chơi
 
-// Trạng thái trò chơi
-let tankX = canvas.width / 2 - tankWidth / 2;
-let tankY = canvas.height - tankHeight - 10;
-let tankDirection = 'UP';
-let bullets = [];
+// Kiểm tra thắng thua
+const winConditions = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+];
 
-function drawTank() {
-    ctx.fillStyle = 'green';
-    ctx.fillRect(tankX, tankY, tankWidth, tankHeight);
+function checkWin() {
+    for (const condition of winConditions) {
+        const [a, b, c] = condition;
+        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+            return board[a];
+        }
+    }
+    return null;
 }
 
-function drawBullets() {
-    ctx.fillStyle = 'red';
-    for (let bullet of bullets) {
-        ctx.beginPath();
-        ctx.arc(bullet.x, bullet.y, bulletRadius, 0, Math.PI * 2);
-        ctx.fill();
-        bullet.y -= bulletSpeed;
+function handleClick(event) {
+    const cellIndex = event.target.getAttribute('data-cell-index');
+    if (board[cellIndex] === '') {
+        board[cellIndex] = currentPlayer;
+        event.target.classList.add(currentPlayer.toLowerCase());
+        event.target.textContent = currentPlayer;
+
+        const winner = checkWin();
+        if (winner) {
+            setTimeout(() => {
+                alert(`${winner} thắng!`);
+                resetGame();
+            }, 100);
+        } else {
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            statusText.textContent = `Lượt chơi: ${currentPlayer}`;
+        }
     }
 }
 
-function moveTank() {
-    if (tankDirection === 'UP') {
-        tankY -= tankSpeed;
-    } else if (tankDirection === 'DOWN') {
-        tankY += tankSpeed;
-    } else if (tankDirection === 'LEFT') {
-        tankX -= tankSpeed;
-    } else if (tankDirection === 'RIGHT') {
-        tankX += tankSpeed;
-    }
+// Khởi động lại trò chơi
+function resetGame() {
+    board = ['', '', '', '', '', '', '', '', ''];
+    cells.forEach(cell => {
+        cell.textContent = '';
+        cell.classList.remove('x', 'o');
+    });
+    currentPlayer = 'X';
+    statusText.textContent = `Lượt chơi: X`;
 }
 
-function shootBullet() {
-    const bullet = { x: tankX + tankWidth / 2, y: tankY, direction: tankDirection };
-    bullets.push(bullet);
-}
-
-// Điều khiển bằng bàn phím
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowUp') tankDirection = 'UP';
-    if (e.key === 'ArrowDown') tankDirection = 'DOWN';
-    if (e.key === 'ArrowLeft') tankDirection = 'LEFT';
-    if (e.key === 'ArrowRight') tankDirection = 'RIGHT';
-    if (e.key === ' ') shootBullet();
+cells.forEach(cell => {
+    cell.addEventListener('click', handleClick);
 });
 
-// Vẽ trò chơi
-function gameLoop() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    moveTank();
-    drawTank();
-    drawBullets();
-    requestAnimationFrame(gameLoop);
-}
-
-// Bắt đầu trò chơi
-gameLoop();
+resetButton.addEventListener('click', resetGame);
