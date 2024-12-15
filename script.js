@@ -42,7 +42,7 @@ function handleClick(event) {
             }, 100);
         } else {
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-            statusText.textContent = `Lượt chơi: ${currentPlayer}`;
+            statusText.textContent = `Người tiếp theo: ${currentPlayer}`;
         }
     }
 }
@@ -55,7 +55,7 @@ function resetGame() {
         cell.classList.remove('x', 'o');
     });
     currentPlayer = 'X';
-    statusText.textContent = `Lượt chơi: X`;
+    statusText.textContent = `Người đầu tiên: X`;
 }
 
 cells.forEach(cell => {
