@@ -1,7 +1,23 @@
-canvas {
-    width: 100%;
-    max-width: 800px; /* Giới hạn kích thước tối đa */
-    height: auto;  /* Tự động điều chỉnh chiều cao */
-    border: 2px solid black;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
     background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#gameContainer {
+    position: relative;
+}
+
+canvas {
+    background-color: #000;
+    border: 1px solid #fff;
 }
