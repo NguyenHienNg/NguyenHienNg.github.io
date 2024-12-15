@@ -103,7 +103,8 @@
             const password = document.getElementById('login-password').value;
 
             if (username && password) {
-                alert('Đăng nhập thành công! Tên người dùng: ' + username);
+                alert('Đăng nhập thành công!');
+                window.location.href = 'welcome.html'; // Chuyển hướng tới trang chào mừng
             } else {
                 alert('Vui lòng nhập đầy đủ thông tin đăng nhập!');
             }
@@ -115,7 +116,8 @@
             const password = document.getElementById('register-password').value;
 
             if (username && email && password) {
-                alert('Đăng ký thành công! Tên người dùng: ' + username);
+                alert('Đăng ký thành công!');
+                window.location.href = 'welcome.html'; // Chuyển hướng tới trang chào mừng
             } else {
                 alert('Vui lòng nhập đầy đủ thông tin đăng ký!');
             }
