@@ -1,73 +1,84 @@
-/* General reset */
+/* Reset các kiểu mặc định của trình duyệt */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body */
+/* Thiết lập font chữ cho toàn bộ trang */
 body {
     font-family: Arial, sans-serif;
+    line-height: 1.6;
     background-color: #f4f4f4;
-    color: #333;
+}
+
+/* Container chung để canh giữa nội dung */
+.container {
+    width: 80%;
+    margin: 0 auto;
 }
 
 /* Header */
 header {
-    background-color: #4CAF50;
+    background: #333;
+    color: #fff;
+    padding: 40px 0;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2rem;
+}
+
+header .btn {
+    background: #4CAF50;
     color: white;
-    padding: 20px;
-    text-align: center;
-}
-
-/* About Section */
-#about {
-    padding: 40px 20px;
-    text-align: center;
-    background-color: #ffffff;
-}
-
-#about h2 {
-    font-size: 2em;
-    margin-bottom: 20px;
-}
-
-#about p {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-}
-
-/* Download Section */
-#download {
-    padding: 40px 20px;
-    text-align: center;
-    background-color: #ffffff;
-}
-
-.download-buttons {
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    border-radius: 5px;
     margin-top: 20px;
 }
 
-.download-btn {
-    display: inline-block;
-    padding: 15px 30px;
-    margin: 10px;
-    background-color: #4CAF50;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 1.2em;
+header .btn:hover {
+    background: #45a049;
 }
 
-.download-btn:hover {
-    background-color: #45a049;
+/* Section tính năng */
+.features {
+    background: #fff;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.features h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.features ul {
+    list-style: none;
+}
+
+.features ul li {
+    font-size: 1.1rem;
+    margin: 10px 0;
 }
 
 /* Footer */
 footer {
+    background: #333;
+    color: #fff;
     text-align: center;
-    padding: 20px;
-    background-color: #333;
-    color: white;
+    padding: 20px 0;
     margin-top: 40px;
+}
+
+footer p {
+    font-size: 1rem;
 }
