@@ -12,23 +12,24 @@ const tankHeight = 30;
 const bulletWidth = 5;
 const bulletHeight = 10;
 
-let touchX = 0;
-let touchY = 0;
+let leftPressed = false;
+let rightPressed = false;
 let firing = false;
 
-// Xử lý cảm ứng
+// Xử lý sự kiện cảm ứng
 canvas.addEventListener("touchstart", touchStartHandler, false);
 canvas.addEventListener("touchmove", touchMoveHandler, false);
 canvas.addEventListener("touchend", touchEndHandler, false);
 
+// Xử lý sự kiện chạm
 function touchStartHandler(e) {
     e.preventDefault();
     const touch = e.touches[0];
-    touchX = touch.clientX;
-    touchY = touch.clientY;
+    let touchX = touch.clientX;
+    let touchY = touch.clientY;
 
-    // Nếu người chơi chạm vào khu vực gần xe tăng, cho phép bắn
-    if (touchY < canvas.height - 100) {
+    // Điều khiển bắn đạn
+    if (touchY > canvas.height - 100) {
         firing = true;
         fireBullet();
     }
@@ -39,7 +40,7 @@ function touchMoveHandler(e) {
     const touch = e.touches[0];
     const moveX = touch.clientX;
 
-    // Điều khiển xe tăng di chuyển theo hướng cảm ứng
+    // Điều khiển di chuyển xe tăng
     if (moveX > tankWidth / 2 && moveX < canvas.width - tankWidth / 2) {
         tankX = moveX - tankWidth / 2;
     }
@@ -48,11 +49,6 @@ function touchMoveHandler(e) {
 function touchEndHandler(e) {
     e.preventDefault();
     firing = false;
-}
-
-// Chức năng di chuyển xe tăng
-function moveTank() {
-    // Di chuyển theo cảm ứng đã được xử lý trong touchMoveHandler
 }
 
 // Chức năng bắn đạn
@@ -66,18 +62,8 @@ function fireBullet() {
     bullets.push(bullet);
 }
 
+// Vẽ xe tăng
 function drawTank() {
     ctx.beginPath();
     ctx.rect(tankX, tankY, tankWidth, tankHeight);
-    ctx.fillStyle = "#00FF00";
-    ctx.fill();
-    ctx.closePath();
-}
-
-function drawBullets() {
-    for (let i = 0; i < bullets.length; i++) {
-        let bullet = bullets[i];
-        ctx.beginPath();
-        ctx.rect(bullet.x, bullet.y, bullet.width, bullet.height);
-        ctx.fillStyle = "#FF0000";
-        ctx.fill();
+    ctx.fillStyle = "#00FF00"; // Màu xanh lá cây
