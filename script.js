@@ -1,4 +1,8 @@
-// JavaScript code để thêm tương tác nếu cần.
-document.querySelector('material-button').addEventListener('click', () => {
-  alert('Bạn đã nhấn vào nút!');
+// Example script to track app download button clicks (if needed)
+document.getElementById("android-btn").addEventListener("click", function() {
+    alert("Bạn đang tải ứng dụng cho Android!");
+});
+
+document.getElementById("ios-btn").addEventListener("click", function() {
+    alert("Bạn đang tải ứng dụng cho iOS!");
 });
