@@ -5,7 +5,7 @@ const message = document.getElementById("message");
 // URL Gist hoặc API GitHub để lưu dữ liệu người dùng (Cần token nếu là private)
 const GIST_API_URL = "https://api.github.com/gists";
 const GIST_ID = "d68bc5f344e22800e0e4f0b946e57bc5"; // Thay bằng ID Gist sau khi tạo
-const GITHUB_TOKEN = "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"; // Thay bằng token của bạn
+const GITHUB_TOKEN = "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"; // Thay bằng token của bạn
 
 // Lưu người dùng mới
 registerForm.addEventListener("submit", async (e) => {
