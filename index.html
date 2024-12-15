@@ -3,125 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập và Đăng ký</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: #f4f4f4;
-        }
-        .container {
-            width: 400px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-        .form-header {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 10px;
-        }
-        .form {
-            padding: 20px;
-        }
-        .form input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .form button {
-            width: 100%;
-            padding: 10px;
-            background: #333;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .form button:hover {
-            background: #555;
-        }
-        .toggle-link {
-            text-align: center;
-            margin-top: 10px;
-        }
-        .toggle-link a {
-            color: #333;
-            text-decoration: none;
-        }
-        .toggle-link a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <title>Đăng nhập / Đăng ký</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <div class="form-header" id="form-title">Đăng nhập</div>
-        <div class="form" id="login-form">
-            <input type="text" id="login-username" placeholder="Tên đăng nhập" required>
-            <input type="password" id="login-password" placeholder="Mật khẩu" required>
-            <button onclick="login()">Đăng nhập</button>
-            <div class="toggle-link">
-                <p>Bạn chưa có tài khoản? <a href="#" onclick="showRegister()">Đăng ký</a></p>
-            </div>
-        </div>
-        <div class="form" id="register-form" style="display: none;">
-            <input type="text" id="register-username" placeholder="Tên đăng nhập" required>
+        <div class="form-container" id="register-form">
+            <h2>Đăng Ký</h2>
+            <input type="text" id="register-username" placeholder="Tên người dùng" required>
             <input type="email" id="register-email" placeholder="Email" required>
             <input type="password" id="register-password" placeholder="Mật khẩu" required>
-            <button onclick="register()">Đăng ký</button>
-            <div class="toggle-link">
-                <p>Bạn đã có tài khoản? <a href="#" onclick="showLogin()">Đăng nhập</a></p>
-            </div>
+            <button onclick="register()">Đăng Ký</button>
+            <p>Đã có tài khoản? <a href="#" onclick="showLogin()">Đăng nhập</a></p>
+        </div>
+
+        <div class="form-container" id="login-form" style="display: none;">
+            <h2>Đăng Nhập</h2>
+            <input type="email" id="login-email" placeholder="Email" required>
+            <input type="password" id="login-password" placeholder="Mật khẩu" required>
+            <button onclick="login()">Đăng Nhập</button>
+            <p>Chưa có tài khoản? <a href="#" onclick="showRegister()">Đăng ký</a></p>
+        </div>
+
+        <div id="welcome" style="display: none;">
+            <h2>Chào mừng!</h2>
+            <p id="welcome-message"></p>
+            <button onclick="logout()">Đăng xuất</button>
         </div>
     </div>
-
-    <script>
-        function showRegister() {
-            document.getElementById('login-form').style.display = 'none';
-            document.getElementById('register-form').style.display = 'block';
-            document.getElementById('form-title').textContent = 'Đăng ký';
-        }
-
-        function showLogin() {
-            document.getElementById('register-form').style.display = 'none';
-            document.getElementById('login-form').style.display = 'block';
-            document.getElementById('form-title').textContent = 'Đăng nhập';
-        }
-
-        function login() {
-            const username = document.getElementById('login-username').value;
-            const password = document.getElementById('login-password').value;
-
-            if (username && password) {
-                alert('Đăng nhập thành công!');
-                window.location.href = 'welcome.html'; // Chuyển hướng tới trang chào mừng
-            } else {
-                alert('Vui lòng nhập đầy đủ thông tin đăng nhập!');
-            }
-        }
-
-        function register() {
-            const username = document.getElementById('register-username').value;
-            const email = document.getElementById('register-email').value;
-            const password = document.getElementById('register-password').value;
-
-            if (username && email && password) {
-                alert('Đăng ký thành công!');
-                window.location.href = 'welcome.html'; // Chuyển hướng tới trang chào mừng
-            } else {
-                alert('Vui lòng nhập đầy đủ thông tin đăng ký!');
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
