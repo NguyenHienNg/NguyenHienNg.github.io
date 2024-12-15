@@ -12,42 +12,58 @@ const tankHeight = 30;
 const bulletWidth = 5;
 const bulletHeight = 10;
 
-let leftPressed = false;
-let rightPressed = false;
-let upPressed = false;
-let downPressed = false;
-let spacePressed = false;
+let touchX = 0;
+let touchY = 0;
+let firing = false;
 
-document.addEventListener("keydown", keyDownHandler);
-document.addEventListener("keyup", keyUpHandler);
+// Xử lý cảm ứng
+canvas.addEventListener("touchstart", touchStartHandler, false);
+canvas.addEventListener("touchmove", touchMoveHandler, false);
+canvas.addEventListener("touchend", touchEndHandler, false);
 
-function keyDownHandler(e) {
-    if (e.key == "Left" || e.key == "ArrowLeft") {
-        leftPressed = true;
-    } else if (e.key == "Right" || e.key == "ArrowRight") {
-        rightPressed = true;
-    } else if (e.key == "Up" || e.key == "ArrowUp") {
-        upPressed = true;
-    } else if (e.key == "Down" || e.key == "ArrowDown") {
-        downPressed = true;
-    } else if (e.key == " " || e.key == "Spacebar") {
-        spacePressed = true;
+function touchStartHandler(e) {
+    e.preventDefault();
+    const touch = e.touches[0];
+    touchX = touch.clientX;
+    touchY = touch.clientY;
+
+    // Nếu người chơi chạm vào khu vực gần xe tăng, cho phép bắn
+    if (touchY < canvas.height - 100) {
+        firing = true;
         fireBullet();
     }
 }
 
-function keyUpHandler(e) {
-    if (e.key == "Left" || e.key == "ArrowLeft") {
-        leftPressed = false;
-    } else if (e.key == "Right" || e.key == "ArrowRight") {
-        rightPressed = false;
-    } else if (e.key == "Up" || e.key == "ArrowUp") {
-        upPressed = false;
-    } else if (e.key == "Down" || e.key == "ArrowDown") {
-        downPressed = false;
-    } else if (e.key == " " || e.key == "Spacebar") {
-        spacePressed = false;
+function touchMoveHandler(e) {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const moveX = touch.clientX;
+
+    // Điều khiển xe tăng di chuyển theo hướng cảm ứng
+    if (moveX > tankWidth / 2 && moveX < canvas.width - tankWidth / 2) {
+        tankX = moveX - tankWidth / 2;
     }
+}
+
+function touchEndHandler(e) {
+    e.preventDefault();
+    firing = false;
+}
+
+// Chức năng di chuyển xe tăng
+function moveTank() {
+    // Di chuyển theo cảm ứng đã được xử lý trong touchMoveHandler
+}
+
+// Chức năng bắn đạn
+function fireBullet() {
+    let bullet = {
+        x: tankX + tankWidth / 2 - bulletWidth / 2,
+        y: tankY,
+        width: bulletWidth,
+        height: bulletHeight,
+    };
+    bullets.push(bullet);
 }
 
 function drawTank() {
@@ -58,33 +74,6 @@ function drawTank() {
     ctx.closePath();
 }
 
-function moveTank() {
-    if (leftPressed && tankX > 0) {
-        tankX -= tankSpeed;
-    }
-    if (rightPressed && tankX < canvas.width - tankWidth) {
-        tankX += tankSpeed;
-    }
-    if (upPressed && tankY > 0) {
-        tankY -= tankSpeed;
-    }
-    if (downPressed && tankY < canvas.height - tankHeight) {
-        tankY += tankSpeed;
-    }
-}
-
-function fireBullet() {
-    if (spacePressed) {
-        let bullet = {
-            x: tankX + tankWidth / 2 - bulletWidth / 2,
-            y: tankY,
-            width: bulletWidth,
-            height: bulletHeight,
-        };
-        bullets.push(bullet);
-    }
-}
-
 function drawBullets() {
     for (let i = 0; i < bullets.length; i++) {
         let bullet = bullets[i];
@@ -92,21 +81,3 @@ function drawBullets() {
         ctx.rect(bullet.x, bullet.y, bullet.width, bullet.height);
         ctx.fillStyle = "#FF0000";
         ctx.fill();
-        ctx.closePath();
-        bullet.y -= bulletSpeed;
-
-        if (bullet.y < 0) {
-            bullets.splice(i, 1);
-            i--;
-        }
-    }
-}
-
-function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawTank();
-    moveTank();
-    drawBullets();
-}
-
-setInterval(draw, 1000 / 60);
