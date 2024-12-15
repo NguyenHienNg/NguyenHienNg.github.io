@@ -2,10 +2,10 @@ const registerForm = document.getElementById("register-form");
 const loginForm = document.getElementById("login-form");
 const message = document.getElementById("message");
 
-// URL Gist hoặc API GitHub để lưu dữ liệu người dùng (Cần token nếu là private)
+// URL Gist hoặc API GitHub để lưu dữ liệu người dùng
 const GIST_API_URL = "https://api.github.com/gists";
-const GIST_ID = "d68bc5f344e22800e0e4f0b946e57bc5"; // Thay bằng ID Gist sau khi tạo
-const GITHUB_TOKEN = "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"; // Thay bằng token của bạn
+const GIST_ID = "d68bc5f344e22800e0e4f0b946e57bc5"; // Gist ID của bạn
+const GITHUB_TOKEN = "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"; // Token cá nhân của bạn
 
 // Lưu người dùng mới
 registerForm.addEventListener("submit", async (e) => {
@@ -14,8 +14,35 @@ registerForm.addEventListener("submit", async (e) => {
   const email = document.getElementById("register-email").value;
   const password = document.getElementById("register-password").value;
 
+  if (!username || !email || !password) {
+    message.textContent = "Vui lòng điền đầy đủ thông tin.";
+    return;
+  }
+
   try {
-    const response = await fetch(GIST_API_URL + "/" + GIST_ID, {
+    // Lấy dữ liệu hiện tại từ Gist
+    const response = await fetch(`${GIST_API_URL}/${GIST_ID}`, {
+      headers: { Authorization: `Bearer ${GITHUB_TOKEN}` },
+    });
+
+    if (!response.ok) {
+      throw new Error("Không thể lấy dữ liệu từ Gist");
+    }
+
+    const data = await response.json();
+    const users = JSON.parse(data.files["users.json"].content || "{}");
+
+    // Kiểm tra xem email đã tồn tại chưa
+    if (users[email]) {
+      message.textContent = "Email đã được sử dụng. Vui lòng chọn email khác.";
+      return;
+    }
+
+    // Thêm người dùng mới
+    users[email] = { username, password };
+
+    // Gửi yêu cầu cập nhật Gist
+    const updateResponse = await fetch(`${GIST_API_URL}/${GIST_ID}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${GITHUB_TOKEN}`,
@@ -24,20 +51,20 @@ registerForm.addEventListener("submit", async (e) => {
       body: JSON.stringify({
         files: {
           "users.json": {
-            content: JSON.stringify({ [email]: { username, password } }),
+            content: JSON.stringify(users, null, 2), // Lưu dữ liệu người dùng mới
           },
         },
       }),
     });
 
-    if (response.ok) {
+    if (updateResponse.ok) {
       message.textContent = "Đăng ký thành công!";
     } else {
-      message.textContent = "Đăng ký thất bại!";
+      throw new Error("Không thể cập nhật Gist");
     }
   } catch (error) {
     console.error(error);
-    message.textContent = "Có lỗi xảy ra.";
+    message.textContent = "Đăng ký thất bại. Kiểm tra lại mã hoặc kết nối mạng.";
   }
 });
 
@@ -48,12 +75,16 @@ loginForm.addEventListener("submit", async (e) => {
   const password = document.getElementById("login-password").value;
 
   try {
-    const response = await fetch(GIST_API_URL + "/" + GIST_ID, {
+    const response = await fetch(`${GIST_API_URL}/${GIST_ID}`, {
       headers: { Authorization: `Bearer ${GITHUB_TOKEN}` },
     });
 
+    if (!response.ok) {
+      throw new Error("Không thể lấy dữ liệu từ Gist");
+    }
+
     const data = await response.json();
-    const users = JSON.parse(data.files["users.json"].content);
+    const users = JSON.parse(data.files["users.json"].content || "{}");
 
     if (users[email] && users[email].password === password) {
       window.location.href = "welcome.html";
@@ -62,6 +93,6 @@ loginForm.addEventListener("submit", async (e) => {
     }
   } catch (error) {
     console.error(error);
-    message.textContent = "Có lỗi xảy ra.";
+    message.textContent = "Đăng nhập thất bại. Kiểm tra lại mã hoặc kết nối mạng.";
   }
 });
