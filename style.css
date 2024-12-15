@@ -1,21 +1,73 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #f5f5f5;
-  color: #212121;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
 }
 
-h1 {
-  color: #6200ea;
-  font-size: 3rem;
+/* Header */
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
 }
 
-material-button {
-  margin-top: 20px;
+/* About Section */
+#about {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+#about h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+#about p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+/* Download Section */
+#download {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+.download-buttons {
+    margin-top: 20px;
+}
+
+.download-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    margin: 10px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+}
+
+.download-btn:hover {
+    background-color: #45a049;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    margin-top: 40px;
 }
