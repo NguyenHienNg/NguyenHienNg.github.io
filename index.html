@@ -1,24 +1,45 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Material 3 Web</title>
-  <!-- Liên kết Material Components CSS -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://unpkg.com/@material/web-components/dist/material-button/material-button.css" rel="stylesheet">
-  <link href="https://unpkg.com/@material/web-components/dist/material-elevation/material-elevation.css" rel="stylesheet">
-  <link href="https://unpkg.com/@material/web-components/dist/material-surface/material-surface.css" rel="stylesheet">
-
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ứng Dụng XYZ - Tải Ngay!</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <h1>Ứng Dụng XYZ</h1>
+        </div>
+    </header>
 
-  <!-- Sử dụng Material Button -->
-  <h1>Chào mừng đến với trang web Material 3!</h1>
-  
-  <material-button raised>Nhấn tôi</material-button>
+    <!-- Giới thiệu ứng dụng -->
+    <section id="about">
+        <h2>Giới thiệu về Ứng Dụng XYZ</h2>
+        <p>Ứng Dụng XYZ giúp bạn làm việc hiệu quả hơn, quản lý thời gian và tối ưu hóa công việc. Với các tính năng như...</p>
+        <ul>
+            <li>Tính năng 1: Mô tả ngắn về tính năng.</li>
+            <li>Tính năng 2: Mô tả ngắn về tính năng.</li>
+            <li>Tính năng 3: Mô tả ngắn về tính năng.</li>
+        </ul>
+    </section>
 
-  <script src="scripts.js"></script>
+    <!-- Nút tải ứng dụng -->
+    <section id="download">
+        <h2>Tải Ứng Dụng</h2>
+        <p>Chọn nền tảng để tải ứng dụng:</p>
+        <div class="download-buttons">
+            <a href="link-to-android-app" class="download-btn" id="android-btn">Tải cho Android</a>
+            <a href="link-to-ios-app" class="download-btn" id="ios-btn">Tải cho iOS</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Ứng Dụng XYZ. Mọi quyền được bảo lưu.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
 </body>
 </html>
