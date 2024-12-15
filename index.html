@@ -1,21 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng nhập/Đăng ký</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Đăng Nhập</h1>
-        <form id="loginForm">
-            <input type="email" id="loginEmail" placeholder="Email" required>
-            <input type="password" id="loginPassword" placeholder="Mật khẩu" required>
-            <button type="submit">Đăng Nhập</button>
-        </form>
-        <p>Chưa có tài khoản? <a href="register.html">Đăng ký</a></p>
+  <div class="container">
+    <h1>Đăng nhập hoặc Đăng ký</h1>
+    <div id="form-container">
+      <form id="register-form">
+        <h2>Đăng ký</h2>
+        <input type="text" id="register-username" placeholder="Tên người dùng" required>
+        <input type="email" id="register-email" placeholder="Email" required>
+        <input type="password" id="register-password" placeholder="Mật khẩu" required>
+        <button type="submit">Đăng ký</button>
+      </form>
+
+      <form id="login-form" style="margin-top: 20px;">
+        <h2>Đăng nhập</h2>
+        <input type="email" id="login-email" placeholder="Email" required>
+        <input type="password" id="login-password" placeholder="Mật khẩu" required>
+        <button type="submit">Đăng nhập</button>
+      </form>
     </div>
-    <script src="script.js"></script>
+    <p id="message"></p>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
