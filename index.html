@@ -1,36 +1,20 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Giới thiệu Ứng Dụng</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trò chơi bắn xe tăng</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Chào Mừng Đến Với Ứng Dụng Của Chúng Tôi!</h1>
-            <p>Ứng dụng tuyệt vời này giúp bạn làm việc hiệu quả hơn.</p>
-            <a href="download-link" class="btn">Tải Ứng Dụng</a>
-        </div>
-    </header>
-
-    <section class="features">
-        <div class="container">
-            <h2>Tính Năng Nổi Bật</h2>
-            <ul>
-                <li>Chức năng 1</li>
-                <li>Chức năng 2</li>
-                <li>Chức năng 3</li>
-            </ul>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Ứng Dụng. Tất cả quyền lợi được bảo vệ.</p>
-        </div>
-    </footer>
+  <div id="game-container">
+    <canvas id="gameCanvas"></canvas>
+    <div id="controls">
+      <button id="fire-button">Bắn</button>
+      <button id="move-left">Trái</button>
+      <button id="move-right">Phải</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
