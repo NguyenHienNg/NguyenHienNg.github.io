@@ -1,9 +1,13 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-// Kích thước canvas
-canvas.width = 600;
-canvas.height = 400;
+// Kích thước canvas tự động điều chỉnh
+function resizeCanvas() {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
 
 // Xe tăng
 const tank = {
@@ -12,13 +16,12 @@ const tank = {
   width: 40,
   height: 20,
   color: "green",
-  speed: 10,
+  speed: 15,
 };
 
 // Đạn
 const bullets = [];
 const enemies = [];
-let isFiring = false;
 
 // Vẽ xe tăng
 function drawTank() {
@@ -26,7 +29,7 @@ function drawTank() {
   ctx.fillRect(tank.x, tank.y, tank.width, tank.height);
 }
 
-// Tạo đạn
+// Bắn đạn
 function fireBullet() {
   bullets.push({
     x: tank.x + tank.width / 2 - 2,
@@ -34,7 +37,7 @@ function fireBullet() {
     width: 4,
     height: 10,
     color: "red",
-    speed: -5,
+    speed: -6,
   });
 }
 
@@ -45,10 +48,8 @@ function drawBullets() {
     ctx.fillStyle = bullet.color;
     ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
 
-    // Loại bỏ đạn nếu vượt khỏi canvas
-    if (bullet.y + bullet.height < 0) {
-      bullets.splice(index, 1);
-    }
+    // Xóa đạn khi ra khỏi màn hình
+    if (bullet.y < 0) bullets.splice(index, 1);
   });
 }
 
@@ -70,14 +71,12 @@ function drawEnemies() {
     ctx.fillStyle = enemy.color;
     ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
 
-    // Loại bỏ kẻ thù nếu vượt khỏi canvas
-    if (enemy.y > canvas.height) {
-      enemies.splice(index, 1);
-    }
+    // Xóa kẻ thù khi ra khỏi màn hình
+    if (enemy.y > canvas.height) enemies.splice(index, 1);
   });
 }
 
-// Kiểm tra va chạm
+// Va chạm
 function checkCollision() {
   bullets.forEach((bullet, bIndex) => {
     enemies.forEach((enemy, eIndex) => {
@@ -87,7 +86,6 @@ function checkCollision() {
         bullet.y < enemy.y + enemy.height &&
         bullet.y + bullet.height > enemy.y
       ) {
-        // Xóa đạn và kẻ thù khi va chạm
         bullets.splice(bIndex, 1);
         enemies.splice(eIndex, 1);
       }
@@ -95,24 +93,20 @@ function checkCollision() {
   });
 }
 
-// Điều khiển xe tăng
-document.getElementById("move-left").addEventListener("click", () => {
+// Xử lý nút điều khiển
+document.getElementById("move-left").addEventListener("touchstart", () => {
   if (tank.x > 0) tank.x -= tank.speed;
 });
 
-document.getElementById("move-right").addEventListener("click", () => {
+document.getElementById("move-right").addEventListener("touchstart", () => {
   if (tank.x + tank.width < canvas.width) tank.x += tank.speed;
 });
 
-document.getElementById("fire-button").addEventListener("click", () => {
-  if (!isFiring) {
-    fireBullet();
-    isFiring = true;
-    setTimeout(() => (isFiring = false), 300); // Chỉ bắn 1 viên trong 300ms
-  }
+document.getElementById("fire-button").addEventListener("touchstart", () => {
+  fireBullet();
 });
 
-// Game loop
+// Vòng lặp trò chơi
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawTank();
@@ -122,7 +116,7 @@ function gameLoop() {
   requestAnimationFrame(gameLoop);
 }
 
-// Tạo kẻ thù mỗi 2 giây
+// Tạo kẻ thù
 setInterval(spawnEnemy, 2000);
 
 // Bắt đầu trò chơi
