@@ -1,35 +1,24 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trò chơi Tic-Tac-Toe</title>
+    <title>Tic-Tac-Toe</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Trò chơi Tic-Tac-Toe</h1>
-    <p>Created by: NguyenHienNg</p>
-    <div id="menu">
-        <h3>Chọn chế độ chơi:</h3>
-        <button onclick="startTwoPlayers()">Chơi hai người</button>
-        <button onclick="startWithAI()">Chơi với máy</button>
+    <h1>Tic-Tac-Toe</h1>
+    <div id="board">
+        <div class="cell" data-index="0"></div>
+        <div class="cell" data-index="1"></div>
+        <div class="cell" data-index="2"></div>
+        <div class="cell" data-index="3"></div>
+        <div class="cell" data-index="4"></div>
+        <div class="cell" data-index="5"></div>
+        <div class="cell" data-index="6"></div>
+        <div class="cell" data-index="7"></div>
+        <div class="cell" data-index="8"></div>
     </div>
-
-    <div id="game-container" style="display: none;">
-        <h2 id="game-mode"></h2>
-        <div id="scoreboard">
-            <p>Người chơi X: <span id="scoreX">0</span></p>
-            <p>Người chơi O: <span id="scoreO">0</span></p>
-        </div>
-        <div id="board"></div>
-        <p id="next-player">Người tiếp theo: X</p>
-        <button onclick="resetGame()">Khởi động lại màn chơi</button>
-        <button onclick="backToMenu()">Quay lại</button>
-    </div>
-
-    <footer>
-        <p>Copyright: @2024 NguyenHienNg</p>
-    </footer>
     <script src="script.js"></script>
 </body>
 </html>
