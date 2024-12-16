@@ -1,24 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic-Tac-Toe</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Trò chơi Tic-Tac-Toe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #333;
+        }
+        #board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 5px;
+            justify-content: center;
+            margin: 20px auto;
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            font-size: 2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .cell.taken {
+            pointer-events: none;
+        }
+        #turn {
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>Tic-Tac-Toe</h1>
-    <div id="board">
-        <div class="cell" data-index="0"></div>
-        <div class="cell" data-index="1"></div>
-        <div class="cell" data-index="2"></div>
-        <div class="cell" data-index="3"></div>
-        <div class="cell" data-index="4"></div>
-        <div class="cell" data-index="5"></div>
-        <div class="cell" data-index="6"></div>
-        <div class="cell" data-index="7"></div>
-        <div class="cell" data-index="8"></div>
-    </div>
-    <script src="script.js"></script>
+    <h1>Trò chơi Tic-Tac-Toe</h1>
+    <p>Hướng dẫn: Hai người chơi lần lượt chọn ô. Người đầu tiên đạt được 3 ô liên tiếp (hàng ngang, dọc hoặc chéo) sẽ thắng!</p>
+    <div id="board"></div>
+    <div id="turn">Lượt chơi: X</div>
+    <button onclick="resetGame()">Khởi động lại</button>
+
+    <script>
+        const board = document.getElementById("board");
+        const turnDisplay = document.getElementById("turn");
+        let currentPlayer = "X";
+        let gameOver = false;
+
+        // Tạo bảng
+        function createBoard() {
+            board.innerHTML = "";
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement("div");
+                cell.classList.add("cell");
+                cell.addEventListener("click", () => makeMove(cell, i));
+                board.appendChild(cell);
+            }
+        }
+
+        // Xử lý lượt chơi
+        function makeMove(cell, index) {
+            if (!gameOver && !cell.textContent) {
+                cell.textContent = currentPlayer;
+                cell.classList.add("taken");
+
+                if (checkWin()) {
+                    turnDisplay.textContent = `Người chơi ${currentPlayer} thắng!`;
+                    gameOver = true;
+                } else if (Array.from(board.children).every(cell => cell.textContent)) {
+                    turnDisplay.textContent = "Hòa!";
+                    gameOver = true;
+                } else {
+                    currentPlayer = currentPlayer === "X" ? "O" : "X";
+                    turnDisplay.textContent = `Lượt chơi: ${currentPlayer}`;
+                }
+            }
+        }
+
+        // Kiểm tra điều kiện thắng
+        function checkWin() {
+            const cells = Array.from(board.children);
+            const winPatterns = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6],
+            ];
+            return winPatterns.some(pattern => 
+                pattern.every(index => cells[index].textContent === currentPlayer)
+            );
+        }
+
+        // Khởi động lại trò chơi
+        function resetGame() {
+            currentPlayer = "X";
+            gameOver = false;
+            turnDisplay.textContent = `Lượt chơi: ${currentPlayer}`;
+            createBoard();
+        }
+
+        // Khởi tạo bảng khi tải trang
+        createBoard();
+    </script>
 </body>
 </html>
