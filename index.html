@@ -1,21 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Xe Di Chuyển</title>
+    <title>Trò chơi Tic-Tac-Toe</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container">
-        <div class="car player-car" id="player"></div>
-        <div class="car enemy-car" id="enemy"></div>
-        <div class="controls">
-            <button id="left">&lt;</button>
-            <button id="finish">Fine</button>
-            <button id="right">&gt;</button>
-        </div>
+    <h1>Trò chơi Tic-Tac-Toe</h1>
+    <p>Created by: NguyenHienNg</p>
+    <div id="menu">
+        <h3>Chọn chế độ chơi:</h3>
+        <button onclick="startTwoPlayers()">Chơi hai người</button>
+        <button onclick="startWithAI()">Chơi với máy</button>
     </div>
+
+    <div id="game-container" style="display: none;">
+        <h2 id="game-mode"></h2>
+        <div id="scoreboard">
+            <p>Người chơi X: <span id="scoreX">0</span></p>
+            <p>Người chơi O: <span id="scoreO">0</span></p>
+        </div>
+        <div id="board"></div>
+        <p id="next-player">Người tiếp theo: X</p>
+        <button onclick="resetGame()">Khởi động lại màn chơi</button>
+        <button onclick="backToMenu()">Quay lại</button>
+    </div>
+
+    <footer>
+        <p>Copyright: @2024 NguyenHienNg</p>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
