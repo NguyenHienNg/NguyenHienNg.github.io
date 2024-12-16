@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trò chơi bắn xe tăng</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Xe Di Chuyển</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="game-container">
-    <canvas id="gameCanvas"></canvas>
-    <div id="controls">
-      <button id="move-left">◀️</button>
-      <button id="fire-button">🔴</button>
-      <button id="move-right">▶️</button>
+    <div class="game-container">
+        <div class="car player-car" id="player"></div>
+        <div class="car enemy-car" id="enemy"></div>
+        <div class="controls">
+            <button id="left">&lt;</button>
+            <button id="finish">Fine</button>
+            <button id="right">&gt;</button>
+        </div>
     </div>
-  </div>
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
