@@ -1,23 +1,15 @@
-// Mã key đúng
-const correctKey = "12345";
+// Mã key hợp lệ
+const validKey = "12345"; // Thay "12345" bằng mã key bạn muốn
 
-// DOM Elements
-const keyInput = document.getElementById("key-input");
-const submitButton = document.getElementById("submit-key");
-const errorMessage = document.getElementById("error-message");
-const keySection = document.getElementById("key-section");
-const welcomeSection = document.getElementById("welcome-section");
+document.getElementById("submitKey").addEventListener("click", function () {
+    const userKey = document.getElementById("keyInput").value;
 
-// Xử lý sự kiện khi nhấn nút
-submitButton.addEventListener("click", () => {
-  const userKey = keyInput.value.trim();
-
-  if (userKey === correctKey) {
-    // Ẩn phần nhập key và hiển thị trang chào mừng
-    keySection.style.display = "none";
-    welcomeSection.style.display = "block";
-  } else {
-    // Hiển thị lỗi nếu mã key sai
-    errorMessage.textContent = "Mã key không đúng. Vui lòng thử lại!";
-  }
+    if (userKey === validKey) {
+        // Chuyển sang trang chào mừng
+        window.location.href = "welcome.html";
+    } else {
+        // Hiển thị thông báo lỗi
+        const errorMessage = document.getElementById("errorMessage");
+        errorMessage.textContent = "Mã key không hợp lệ. Vui lòng thử lại!";
+    }
 });
