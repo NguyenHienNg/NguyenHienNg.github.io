@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trò Chơi Cờ Vua</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Trò Chơi Cờ Vua</h1>
+        <div id="instructions">
+            <h2>Hướng Dẫn Cách Chơi</h2>
+            <p>1. Hai người chơi lần lượt thực hiện nước đi.</p>
+            <p>2. Các quân cờ chỉ được di chuyển theo quy tắc cờ vua.</p>
+            <p>3. Người chiến thắng là người hạ được quân vua của đối thủ.</p>
+        </div>
+        <div id="scores">
+            <h3>Lượt Thắng</h3>
+            <p>Đội Trắng: <span id="whiteWins">0</span></p>
+            <p>Đội Đen: <span id="blackWins">0</span></p>
+        </div>
+        <div id="board"></div>
+        <button id="restartButton">Khởi Động Lại</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
