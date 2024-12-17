@@ -1,28 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trò Chơi Cờ Vua</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Trò chơi cờ vua</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="app">
+    <header>
         <h1>Trò Chơi Cờ Vua</h1>
-        <div id="instructions">
-            <h2>Hướng Dẫn Cách Chơi</h2>
-            <p>1. Hai người chơi lần lượt thực hiện nước đi.</p>
-            <p>2. Các quân cờ chỉ được di chuyển theo quy tắc cờ vua.</p>
-            <p>3. Người chiến thắng là người hạ được quân vua của đối thủ.</p>
-        </div>
-        <div id="scores">
-            <h3>Lượt Thắng</h3>
-            <p>Đội Trắng: <span id="whiteWins">0</span></p>
-            <p>Đội Đen: <span id="blackWins">0</span></p>
-        </div>
+    </header>
+    <section id="instructions">
+        <h2>Hướng Dẫn Cách Chơi</h2>
+        <p>1. Bàn cờ được chia làm 64 ô (8x8), với quân trắng bắt đầu trước.</p>
+        <p>2. Hai người chơi luân phiên di chuyển quân cờ theo luật cờ vua.</p>
+        <p>3. Nhấn vào quân cờ để chọn, sau đó chọn ô đích để di chuyển.</p>
+        <p>4. Nếu muốn bắt đầu lại, nhấn nút "Khởi Động Lại".</p>
+    </section>
+    <section id="scores">
+        <h2>Lượt Thắng</h2>
+        <p>Đội Trắng: <span id="white-wins">0</span></p>
+        <p>Đội Đen: <span id="black-wins">0</span></p>
+    </section>
+    <section id="chess-board">
+        <h2>Bàn Cờ</h2>
         <div id="board"></div>
-        <button id="restartButton">Khởi Động Lại</button>
-    </div>
+    </section>
+    <section id="next-move">
+        <h2>Việc Tiếp Theo</h2>
+        <p id="turn-indicator">Lượt chơi của đội trắng</p>
+    </section>
+    <button id="restart-button">Khởi Động Lại</button>
     <script src="script.js"></script>
 </body>
 </html>
