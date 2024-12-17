@@ -1,41 +1,53 @@
 const board = document.getElementById("board");
-const restartButton = document.getElementById("restartButton");
-const whiteWinsDisplay = document.getElementById("whiteWins");
-const blackWinsDisplay = document.getElementById("blackWins");
-
-let whiteWins = 0;
-let blackWins = 0;
+const turnIndicator = document.getElementById("turn-indicator");
+const restartButton = document.getElementById("restart-button");
+let currentTurn = "white";
 
 // Tạo bàn cờ
-function createBoard() {
-    board.innerHTML = ""; // Xóa bàn cờ cũ
+function createChessBoard() {
+    const pieces = {
+        white: ["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖", "♙"],
+        black: ["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜", "♟"],
+    };
+
+    board.innerHTML = ""; // Làm trống bàn cờ
+
     for (let row = 0; row < 8; row++) {
         for (let col = 0; col < 8; col++) {
             const square = document.createElement("div");
-            square.classList.add("square");
-            square.classList.add((row + col) % 2 === 0 ? "white" : "black");
+            square.classList.add("square", (row + col) % 2 === 0 ? "light" : "dark");
+            square.dataset.row = row;
+            square.dataset.col = col;
 
-            // Thêm quân cờ mặc định
-            if (row === 0 || row === 1 || row === 6 || row === 7) {
-                const piece = document.createElement("span");
-                if (row === 1) piece.textContent = "♙"; // Tốt trắng
-                if (row === 6) piece.textContent = "♟"; // Tốt đen
-                if (row === 0 || row === 7) {
-                    const pieces = ["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"];
-                    piece.textContent = row === 0 ? pieces[col] : pieces[col].toLowerCase();
-                }
-                square.appendChild(piece);
-            }
+            // Thêm quân cờ
+            if (row === 0) square.textContent = pieces.black[col];
+            if (row === 1) square.textContent = pieces.black[8];
+            if (row === 6) square.textContent = pieces.white[8];
+            if (row === 7) square.textContent = pieces.white[col];
 
             board.appendChild(square);
         }
     }
 }
 
-// Reset bàn cờ
-restartButton.addEventListener("click", () => {
-    createBoard();
+// Xử lý lượt chơi
+board.addEventListener("click", (e) => {
+    const square = e.target;
+    if (!square.classList.contains("square")) return;
+
+    if (square.textContent) {
+        alert(`Chọn quân cờ ${square.textContent} của bạn để di chuyển!`);
+    } else {
+        alert("Vui lòng chọn quân cờ trước!");
+    }
 });
 
-// Khởi tạo ban đầu
-createBoard();
+// Khởi động lại
+restartButton.addEventListener("click", () => {
+    createChessBoard();
+    currentTurn = "white";
+    turnIndicator.textContent = "Lượt chơi của đội trắng";
+});
+
+// Tạo bàn cờ ban đầu
+createChessBoard();
